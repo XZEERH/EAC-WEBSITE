@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC Cyber Astronomy V2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-red: #ff003c;
+            --cyber-purple: #8a2be2;
+            --cyber-blue: #00f2ff;
+            --glow-white: #ffffff;
+            --dark-space: #05050a;
+        }
+
+        body {
+            background-color: var(--dark-space);
+            color: var(--glow-white);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* --- ANIMASI ORBIT ATOM --- */
+        .atom-container {
+            position: relative;
+            width: 150px; height: 150px;
+            margin: 20px 0;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .nucleus-glow {
+            position: absolute;
+            width: 20px; height: 20px;
+            background: var(--glow-white);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--glow-white), 0 0 30px var(--cyber-purple), 0 0 50px var(--primary-red);
+            z-index: 5;
+        }
+        .orbit-path {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 120px; height: 40px;
+        }
+        .orbit-v { transform: rotate(90deg); border-color: var(--cyber-purple); animation: rotV 4s linear infinite; }
+        .orbit-d1 { transform: rotate(45deg); border-color: var(--primary-red); animation: rotD 3s linear infinite reverse; }
+        .orbit-h { border-color: var(--cyber-blue); animation: rotH 5s linear infinite; }
+
+        @keyframes rotV { from { transform: rotate(90deg) rotateX(70deg); } to { transform: rotate(450deg) rotateX(70deg); } }
+        @keyframes rotD { from { transform: rotate(45deg) rotateX(70deg); } to { transform: rotate(405deg) rotateX(70deg); } }
+        @keyframes rotH { from { transform: rotate(0deg) rotateX(70deg); } to { transform: rotate(360deg) rotateX(70deg); } }
+
+        /* --- FORM DESIGN --- */
+        .glass-form {
+            background: rgba(15, 15, 25, 0.9);
+            padding: 25px; border-radius: 15px;
+            width: 100%; max-width: 380px;
+            border: 1px solid #222;
+        }
+        .input-box { margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; color: var(--primary-red); margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea {
+            width: 100%; background: #11111d; border: 1px solid #333;
+            padding: 12px; color: #fff; border-radius: 8px; box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%; padding: 14px; border: none; border-radius: 8px;
+            font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase;
+        }
+        #btn-download { background: var(--cyber-purple); color: white; }
+        #btn-wa { background: #25d366; color: white; text-align: center; text-decoration: none; display: none; margin-top: 15px; }
+
+        /* --- DESAIN KARTU (PERSIS SEPERTI GAMBAR YG DIUPLOAD) --- */
+        #card-preview { position: absolute; left: -9999px; }
+        .id-card {
+            width: 600px; /* Ukuran lebih besar agar kualitas download bagus */
+            height: 350px;
+            background: linear-gradient(135deg, #020b16 0%, #05050a 100%);
+            border: 4px solid #00f2ff;
+            border-radius: 25px;
+            padding: 35px;
+            color: white;
+            position: relative;
+            box-sizing: border-box;
+            font-family: 'Arial Black', sans-serif; /* Font tegas mirip gambar */
+        }
+        .card-header-text {
+            text-align: right; font-size: 14px; color: #888; margin-bottom: 5px;
+        }
+        .card-main-title {
+            text-align: center; font-size: 28px; font-weight: bold;
+            letter-spacing: 3px; border-bottom: 2px solid #005a66;
+            padding-bottom: 15px; margin-bottom: 30px;
+        }
+        .card-row { display: flex; margin-bottom: 15px; font-size: 22px; }
+        .card-label { color: #00f2ff; width: 140px; font-weight: 900; }
+        .card-value { color: #ffffff; text-transform: uppercase; }
+        .card-alasan { margin-top: 5px; font-size: 16px; color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <div class="atom-container">
+        <div class="nucleus-glow"></div>
+        <div class="orbit-path orbit-v"></div>
+        <div class="orbit-path orbit-d1"></div>
+        <div class="orbit-path orbit-h"></div>
+    </div>
+
+    <header style="text-align: center; margin-bottom: 20px;">
+        <h1 style="letter-spacing: 4px;">EAC <span style="color:var(--cyber-purple)">REGISTRASI 1</span></h1>
+        <div style="font-size: 0.7rem; color: #ff6600; letter-spacing: 2px;">EDUCATION ASTRONOMY CREATOR</div>
+    </header>
+
+    <div class="glass-form">
+        <div class="input-box">
+            <label>NAMA LENGKAP</label>
+            <input type="text" id="nama" placeholder="nama asli...">
+        </div>
+        <div class="input-box">
+            <label>UMUR</label>
+            <input type="number" id="umur" placeholder="minimal 12">
+        </div>
+        <div class="input-box">
+            <label>STATUS</label>
+            <select id="status">
+                <option value="" disabled selected>PILIH STATUS</option>
+                <option value="PELAJAR">PELAJAR</option>
+                <option value="MAHASISWA">MAHASISWA</option>
+                <option value="PEKERJA">PEKERJA</option>
+                <option value="DLL">LAINNYA</option>
+            </select>
+        </div>
+        <div class="input-box">
+            <label>NAMA AKUN TIKTOK</label>
+            <input type="text" id="tiktok" placeholder="@username">
+        </div>
+        <div class="input-box">
+            <label>ALASAN BERGABUNG</label>
+            <textarea id="alasan" rows="2"></textarea>
+        </div>
+
+        <button id="btn-download" class="btn" onclick="generate()">1. DOWNLOAD KARTU IDENTITAS</button>
+        <a href="https://chat.whatsapp.com/J09csfCHJ8sFYNIpf5ygpM" id="btn-wa" class="btn">2. SUBMIT / GABUNG GRUP</a>
+    </div>
+
+    <div id="card-preview">
+        <div id="capture-id" class="id-card">
+            <div class="card-header-text">EAC COMMUNITY</div>
+            <div class="card-main-title">KARTU IDENTITAS EAC</div>
+            
+            <div class="card-row"><span class="card-label">NAMA:</span> <span class="card-value" id="v-nama"></span></div>
+            <div class="card-row"><span class="card-label">UMUR:</span> <span class="card-value" id="v-umur"></span></div>
+            <div class="card-row"><span class="card-label">STATUS:</span> <span class="card-value" id="v-status"></span></div>
+            <div class="card-row"><span class="card-label">TIKTOK:</span> <span class="card-value" id="v-tiktok"></span></div>
+            <div class="card-row"><span class="card-label">ALASAN:</span></div>
+            <div class="card-alasan" id="v-alasan"></div>
+        </div>
+    </div>
+
+    <script>
+        function generate() {
+            const n = document.getElementById('nama').value;
+            const u = document.getElementById('umur').value;
+            const s = document.getElementById('status').value;
+            
+            if(!n || u < 12 || s === "") {
+                alert("Lengkapi semua data dan pilih status dulu!");
+                return;
+            }
+
+            document.getElementById('v-nama').innerText = n.toUpperCase();
+            document.getElementById('v-umur').innerText = u;
+            document.getElementById('v-status').innerText = s;
+            document.getElementById('v-tiktok').innerText = document.getElementById('tiktok').value.toUpperCase();
+            document.getElementById('v-alasan').innerText = document.getElementById('alasan').value.toUpperCase();
+
+            html2canvas(document.getElementById('capture-id'), {
+                scale: 2, // Meningkatkan ketajaman gambar
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'ID_CARD_EAC_' + n + '.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+
+                document.getElementById('btn-wa').style.display = 'block';
+                document.getElementById('btn-download').innerText = "✅ BERHASIL DIDOWNLOAD";
+                document.getElementById('btn-download').style.opacity = "0.5";
+            });
+        }
+    </script>
+</body>
+</html>
