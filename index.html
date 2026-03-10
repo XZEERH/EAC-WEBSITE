@@ -3,195 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAC Cyber Astronomy V2</title>
+    <title>EAC Registration 1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap');
+
         :root {
-            --primary-red: #ff003c;
-            --cyber-purple: #8a2be2;
-            --cyber-blue: #00f2ff;
-            --glow-white: #ffffff;
-            --dark-space: #05050a;
+            --bg-body: #010103;
+            --bg-card-form: #0d0d1a;
+            --accent-purple: #9b51e0;
+            --accent-cyan: #00e5ff;
+            --label-red: #ff0000;
+            --input-bg: #151525;
+            --btn-grad: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
         }
 
         body {
-            background-color: var(--dark-space);
-            color: var(--glow-white);
-            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-body);
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            margin: 0;
+            padding: 40px 15px;
         }
 
-        /* --- ANIMASI ORBIT ATOM --- */
-        .atom-container {
+        /* --- LOGO ORBIT --- */
+        .logo-area {
             position: relative;
-            width: 150px; height: 150px;
-            margin: 20px 0;
-            display: flex; justify-content: center; align-items: center;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        .nucleus-glow {
+
+        .eac-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 10;
+            text-shadow: 0 0 10px #a855f7;
+        }
+
+        .orbit {
             position: absolute;
-            width: 20px; height: 20px;
-            background: var(--glow-white);
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--glow-white), 0 0 30px var(--cyber-purple), 0 0 50px var(--primary-red);
-            z-index: 5;
+            width: 130px;
+            height: 48px;
+            border: 1.5px solid;
         }
-        .orbit-path {
+
+        .o1 { border-color: var(--accent-purple); transform: rotate(45deg); animation: orb 3s linear infinite; }
+        .o2 { border-color: #38bdf8; transform: rotate(-45deg); animation: orb 4s linear infinite reverse; }
+        .o3 { border-color: var(--label-red); transform: rotate(90deg); animation: orb 5s linear infinite; opacity: 0.6; }
+
+        @keyframes orb {
+            0% { transform: rotate(var(--tw-rotate, 0deg)) scaleY(1); }
+            100% { transform: rotate(calc(var(--tw-rotate, 0deg) + 360deg)) scaleY(1); }
+        }
+
+        .main-title { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 5px; }
+        .main-title span { color: #a855f7; text-shadow: 0 0 15px #a855f7; }
+        .desc-title { color: #e67e22; font-size: 11px; letter-spacing: 2px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; }
+
+        /* --- FORM --- */
+        .form-container {
+            background: var(--bg-card-form);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .field { margin-bottom: 15px; }
+        label { display: block; color: var(--label-red); font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid #252535; border-radius: 8px; padding: 12px; color: #ccc; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+
+        .btn-generate {
+            width: 100%; padding: 15px; border-radius: 30px; border: none;
+            background: var(--btn-grad); color: white; font-family: 'Orbitron', sans-serif;
+            font-weight: bold; cursor: pointer; margin-top: 10px;
+        }
+
+        /* --- DESAIN KARTU IDENTITAS --- */
+        #id-card-capture {
             position: absolute;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            width: 120px; height: 40px;
-        }
-        .orbit-v { transform: rotate(90deg); border-color: var(--cyber-purple); animation: rotV 4s linear infinite; }
-        .orbit-d1 { transform: rotate(45deg); border-color: var(--primary-red); animation: rotD 3s linear infinite reverse; }
-        .orbit-h { border-color: var(--cyber-blue); animation: rotH 5s linear infinite; }
-
-        @keyframes rotV { from { transform: rotate(90deg) rotateX(70deg); } to { transform: rotate(450deg) rotateX(70deg); } }
-        @keyframes rotD { from { transform: rotate(45deg) rotateX(70deg); } to { transform: rotate(405deg) rotateX(70deg); } }
-        @keyframes rotH { from { transform: rotate(0deg) rotateX(70deg); } to { transform: rotate(360deg) rotateX(70deg); } }
-
-        /* --- FORM DESIGN --- */
-        .glass-form {
-            background: rgba(15, 15, 25, 0.9);
-            padding: 25px; border-radius: 15px;
-            width: 100%; max-width: 380px;
-            border: 1px solid #222;
-        }
-        .input-box { margin-bottom: 15px; }
-        label { display: block; font-size: 0.75rem; color: var(--primary-red); margin-bottom: 5px; font-weight: bold; }
-        input, select, textarea {
-            width: 100%; background: #11111d; border: 1px solid #333;
-            padding: 12px; color: #fff; border-radius: 8px; box-sizing: border-box;
-        }
-
-        .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 8px;
-            font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase;
-        }
-        #btn-download { background: var(--cyber-purple); color: white; }
-        #btn-wa { background: #25d366; color: white; text-align: center; text-decoration: none; display: none; margin-top: 15px; }
-
-        /* --- DESAIN KARTU (PERSIS SEPERTI GAMBAR YG DIUPLOAD) --- */
-        #card-preview { position: absolute; left: -9999px; }
-        .id-card {
-            width: 600px; /* Ukuran lebih besar agar kualitas download bagus */
+            left: -9999px;
+            width: 600px;
             height: 350px;
-            background: linear-gradient(135deg, #020b16 0%, #05050a 100%);
-            border: 4px solid #00f2ff;
+            background-color: #01040a;
+            border: 4px solid var(--accent-cyan);
             border-radius: 25px;
-            padding: 35px;
-            color: white;
-            position: relative;
+            padding: 20px 40px;
             box-sizing: border-box;
-            font-family: 'Arial Black', sans-serif; /* Font tegas mirip gambar */
+            color: white;
         }
-        .card-header-text {
-            text-align: right; font-size: 14px; color: #888; margin-bottom: 5px;
-        }
-        .card-main-title {
-            text-align: center; font-size: 28px; font-weight: bold;
-            letter-spacing: 3px; border-bottom: 2px solid #005a66;
-            padding-bottom: 15px; margin-bottom: 30px;
-        }
-        .card-row { display: flex; margin-bottom: 15px; font-size: 22px; }
-        .card-label { color: #00f2ff; width: 140px; font-weight: 900; }
-        .card-value { color: #ffffff; text-transform: uppercase; }
-        .card-alasan { margin-top: 5px; font-size: 16px; color: #ccc; }
+
+        .card-header-text { text-align: right; font-size: 14px; color: #777; margin-bottom: 0; }
+        .card-title { text-align: center; font-size: 28px; font-weight: bold; letter-spacing: 4px; margin: 10px 0; font-family: 'Arial', sans-serif; }
+        .card-line { width: 100%; height: 2px; background-color: #004d4d; margin-bottom: 30px; }
+        .card-info-row { display: flex; margin-bottom: 15px; font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; }
+        .card-label { width: 140px; color: var(--accent-cyan); text-transform: uppercase; flex-shrink: 0; }
+        .card-value { color: white; text-transform: uppercase; }
+
     </style>
 </head>
 <body>
 
-    <div class="atom-container">
-        <div class="nucleus-glow"></div>
-        <div class="orbit-path orbit-v"></div>
-        <div class="orbit-path orbit-d1"></div>
-        <div class="orbit-path orbit-h"></div>
+    <div class="logo-area">
+        <div class="orbit o1" style="--tw-rotate: 45deg"></div>
+        <div class="orbit o2" style="--tw-rotate: -45deg"></div>
+        <div class="orbit o3" style="--tw-rotate: 90deg"></div>
+        <div class="eac-badge">EAC</div>
     </div>
 
-    <header style="text-align: center; margin-bottom: 20px;">
-        <h1 style="letter-spacing: 4px;">EAC <span style="color:var(--cyber-purple)">REGISTRASI 2</span></h1>
-        <div style="font-size: 0.7rem; color: #ff6600; letter-spacing: 2px;">EDUCATION ASTRONOMY CREATOR</div>
-    </header>
+    <div class="main-title">EAC <span>REGISTRASI 1</span></div>
+    <div class="desc-title">Education Astronomy Creator</div>
 
-    <div class="glass-form">
-        <div class="input-box">
-            <label>NAMA LENGKAP</label>
-            <input type="text" id="nama" placeholder="nama asli...">
-        </div>
-        <div class="input-box">
-            <label>UMUR</label>
-            <input type="number" id="umur" placeholder="minimal 12">
-        </div>
-        <div class="input-box">
-            <label>STATUS</label>
-            <select id="status">
-                <option value="" disabled selected>PILIH STATUS</option>
-                <option value="PELAJAR">PELAJAR</option>
-                <option value="MAHASISWA">MAHASISWA</option>
-                <option value="PEKERJA">PEKERJA</option>
-                <option value="DLL">LAINNYA</option>
+    <div class="container form-container">
+        <div class="field"><label>Nama Lengkap</label><input type="text" id="in-nama" placeholder="Nama asli..."></div>
+        <div class="field"><label>Umur</label><input type="number" id="in-umur" placeholder="minimal 12"></div>
+        <div class="field">
+            <label>Status</label>
+            <select id="in-status">
+                <option>lainnya</option>
+                <option>Pelajar</option>
+                <option>Mahasiswa</option>
+                <option>Umum</option>
             </select>
         </div>
-        <div class="input-box">
-            <label>NAMA AKUN TIKTOK</label>
-            <input type="text" id="tiktok" placeholder="@username">
-        </div>
-        <div class="input-box">
-            <label>ALASAN BERGABUNG</label>
-            <textarea id="alasan" rows="2"></textarea>
-        </div>
+        <div class="field"><label>Username TikTok</label><input type="text" id="in-tiktok" placeholder="nama akun tiktok"></div>
+        <div class="field"><label>Alasan Bergabung</label><textarea id="in-alasan" rows="2" placeholder="Tulis alasan..."></textarea></div>
 
-        <button id="btn-download" class="btn" onclick="generate()">1. DOWNLOAD KARTU IDENTITAS</button>
-        <a href="https://chat.whatsapp.com/C0CyxNd1FYsEbCqtmHLncr?mode=gi_t" id="btn-wa" class="btn">2. SUBMIT / GABUNG GRUP</a>
+        <button class="btn-generate" onclick="generateIDCard()">GENERATE KARTU</button>
     </div>
 
-    <div id="card-preview">
-        <div id="capture-id" class="id-card">
-            <div class="card-header-text">EAC COMMUNITY</div>
-            <div class="card-main-title">KARTU IDENTITAS EAC</div>
-            
-            <div class="card-row"><span class="card-label">NAMA:</span> <span class="card-value" id="v-nama"></span></div>
-            <div class="card-row"><span class="card-label">UMUR:</span> <span class="card-value" id="v-umur"></span></div>
-            <div class="card-row"><span class="card-label">STATUS:</span> <span class="card-value" id="v-status"></span></div>
-            <div class="card-row"><span class="card-label">TIKTOK:</span> <span class="card-value" id="v-tiktok"></span></div>
-            <div class="card-row"><span class="card-label">ALASAN:</span></div>
-            <div class="card-alasan" id="v-alasan"></div>
+    <div id="id-card-capture">
+        <p class="card-header-text">EAC COMMUNITY</p>
+        <div class="card-title">KARTU IDENTITAS EAC</div>
+        <div class="card-line"></div>
+        
+        <div class="card-info-row">
+            <div class="card-label">NAMA:</div>
+            <div class="card-value" id="out-nama"></div>
+        </div>
+        <div class="card-info-row">
+            <div class="card-label">UMUR:</div>
+            <div class="card-value" id="out-umur"></div>
+        </div>
+        <div class="card-info-row">
+            <div class="card-label">STATUS:</div>
+            <div class="card-value" id="out-status"></div>
+        </div>
+        <div class="card-info-row">
+            <div class="card-label">TIKTOK:</div>
+            <div class="card-value" id="out-tiktok"></div>
+        </div>
+        <div class="card-info-row">
+            <div class="card-label">ALASAN:</div>
+            <div class="card-value" id="out-alasan"></div>
         </div>
     </div>
 
     <script>
-        function generate() {
-            const n = document.getElementById('nama').value;
-            const u = document.getElementById('umur').value;
-            const s = document.getElementById('status').value;
+        function generateIDCard() {
+            const nama = document.getElementById('in-nama').value;
+            const alasan = document.getElementById('in-alasan').value;
             
-            if(!n || u < 12 || s === "") {
-                alert("Lengkapi semua data dan pilih status dulu!");
-                return;
-            }
+            if(!nama) return alert("Isi nama dulu!");
+            if(!alasan) return alert("Alasannya diisi juga ya!");
 
-            document.getElementById('v-nama').innerText = n.toUpperCase();
-            document.getElementById('v-umur').innerText = u;
-            document.getElementById('v-status').innerText = s;
-            document.getElementById('v-tiktok').innerText = document.getElementById('tiktok').value.toUpperCase();
-            document.getElementById('v-alasan').innerText = document.getElementById('alasan').value.toUpperCase();
+            // Menyambungkan input ke kartu
+            document.getElementById('out-nama').innerText = nama;
+            document.getElementById('out-umur').innerText = document.getElementById('in-umur').value;
+            document.getElementById('out-status').innerText = document.getElementById('in-status').value;
+            document.getElementById('out-tiktok').innerText = document.getElementById('in-tiktok').value;
+            document.getElementById('out-alasan').innerText = alasan; // Ini perbaikannya!
 
-            html2canvas(document.getElementById('capture-id'), {
-                scale: 2, // Meningkatkan ketajaman gambar
-                backgroundColor: null
-            }).then(canvas => {
+            const card = document.getElementById('id-card-capture');
+
+            html2canvas(card, { backgroundColor: null, scale: 2 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'ID_CARD_EAC_' + n + '.png';
+                link.download = `ID_CARD_EAC_${nama}.png`;
                 link.href = canvas.toDataURL("image/png");
                 link.click();
 
-                document.getElementById('btn-wa').style.display = 'block';
-                document.getElementById('btn-download').innerText = "✅ BERHASIL DIDOWNLOAD";
-                document.getElementById('btn-download').style.opacity = "0.5";
+                setTimeout(() => {
+                    window.location.href = "https://chat.whatsapp.com/J09csfCHJ8sFYNIpf5ygpM?mode=gi_t";
+                }, 2000);
             });
         }
     </script>
